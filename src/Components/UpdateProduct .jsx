@@ -11,7 +11,7 @@ const UpdateProduct = () => {
   const [productquantity, setProductQuantity] = useState("");
 
   const getSingleProduct = async () => {
-    const apiUrl = `http://localhost:4000/get-single-product/${id}`;
+    const apiUrl = `http://${process.env.REACT_APP_API_URL}/get-single-product/${id}`;
     const response = await axios.get(apiUrl);
     setProductName(response.data.getSingleProduct.Name)
     setProductPrice(response.data.getSingleProduct.Price)
@@ -32,7 +32,7 @@ const UpdateProduct = () => {
       Quantity: productquantity,
     };
 
-    const apiUrl = `http://localhost:4000/update-product/${id}`;
+    const apiUrl = `http://${process.env.REACT_APP_API_URL}/update-product/${id}`;
 
     try {
       await axios.put(apiUrl, productData);
