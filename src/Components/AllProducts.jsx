@@ -8,7 +8,7 @@ const AllProducts = () => {
 
   const showProducts = async () => {
     try {
-      const apiUrl = `http://${process.env.REACT_APP_API_URL}/get-products`;
+      const apiUrl = `${process.env.REACT_APP_API_URL}/get-products`;
       const response = await axios.get(apiUrl);
       setProducts(response.data.products);
     } catch (error) {
@@ -23,7 +23,7 @@ const AllProducts = () => {
 
   const deleteProduct = async (id) => {
   try {
-    const apiUrl = `http://${process.env.REACT_APP_API_URL}/delete-product/${id}`;
+    const apiUrl = `${process.env.REACT_APP_API_URL}/delete-product/${id}`;
     await axios.delete(apiUrl);
 
     alert("Data Deleted.");

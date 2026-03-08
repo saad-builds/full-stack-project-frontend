@@ -18,7 +18,7 @@ const Productform = () => {
       Quantity: productquantity,
     };
 
-    const apiUrl = `http://${process.env.REACT_APP_API_URL}/add`;
+    const apiUrl = `${process.env.REACT_APP_API_URL}/add`;
 
     try {
       await axios.post(apiUrl, productData);
