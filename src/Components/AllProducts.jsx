@@ -9,7 +9,7 @@ const AllProducts = () => {
     try {
       const apiUrl = `${import.meta.env.VITE_API_URL}/get-products`;
       const response = await axios.get(apiUrl);
-      setProducts(response.data.products);
+      setProducts(response.data.products || []);;
     } catch (error) {
       console.log(error);
     }
