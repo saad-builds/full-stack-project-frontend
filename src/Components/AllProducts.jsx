@@ -59,34 +59,42 @@ const AllProducts = () => {
           </thead>
 
           <tbody>
-            {products.map((product) => (
-              <tr
-                key={product._id}
-                className="border-t border-zinc-700 hover:bg-zinc-700/40 transition"
-              >
-                <td className="px-6 py-4">{product.Name}</td>
-                <td className="px-6 py-4">${product.Price}</td>
-                <td className="px-6 py-4">{product.Quantity}</td>
+              {products.length === 0 ? (
+                <tr>
+                  <td colSpan="4" className="px-6 py-10 text-center text-zinc-400">
+                    No products yet. Click "+ Add Product" to add one.
+                  </td>
+                </tr>
+              ) : (
+                products.map((product) => (
+                  <tr
+                    key={product._id}
+                    className="border-t border-zinc-700 hover:bg-zinc-700/40 transition"
+                  >
+                    <td className="px-6 py-4">{product.Name}</td>
+                    <td className="px-6 py-4">${product.Price}</td>
+                    <td className="px-6 py-4">{product.Quantity}</td>
 
-                <td className="px-6 py-4">
-                  <div className="flex justify-center gap-3">
-                    <Link
-                      to={`/update-product/${product._id}`}
-                      className="bg-emerald-600 hover:bg-emerald-500 px-4 py-1 rounded-md text-sm"
-                    >
-                      Update
-                    </Link>
+                    <td className="px-6 py-4">
+                      <div className="flex justify-center gap-3">
+                        <Link
+                          to={`/update-product/${product._id}`}
+                          className="bg-emerald-600 hover:bg-emerald-500 px-4 py-1 rounded-md text-sm"
+                        >
+                          Update
+                        </Link>
 
-                    <Link
-                      className="bg-red-600 hover:bg-red-500 px-4 py-1 rounded-md text-sm"
-                      onClick={() => deleteProduct(product._id)}
-                    >
-                      Delete
-                    </Link>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                        <Link
+                          className="bg-red-600 hover:bg-red-500 px-4 py-1 rounded-md text-sm"
+                          onClick={() => deleteProduct(product._id)}
+                        >
+                          Delete
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
           </tbody>
         </table>
       </div>
