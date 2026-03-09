@@ -18,7 +18,7 @@ const Productform = () => {
       Quantity: productquantity,
     };
 
-    const apiUrl = `${process.env.REACT_APP_API_URL}/add`;
+    const apiUrl = `${import.meta.env.VITE_API_URL}/add`;
 
     try {
       await axios.post(apiUrl, productData);
@@ -37,7 +37,6 @@ const Productform = () => {
 
   return (
     <div className="min-h-screen bg-zinc-900 text-zinc-100">
-
       {/* Header */}
       <header className="bg-zinc-800 border-b border-zinc-700">
         <div className="max-w-6xl mx-auto px-6 py-4">
@@ -47,7 +46,6 @@ const Productform = () => {
 
       {/* Page Content */}
       <main className="max-w-6xl mx-auto px-6 py-10">
-
         {/* Page Title */}
         <div className="mb-8">
           <h2 className="text-3xl font-semibold">Add New Product</h2>
@@ -58,9 +56,7 @@ const Productform = () => {
 
         {/* Form Card */}
         <div className="bg-zinc-800 p-8 rounded-lg shadow-md max-w-xl">
-
           <form className="space-y-6" onSubmit={handleSubmit}>
-
             {/* Product Name */}
             <div>
               <label className="block mb-2 text-sm text-zinc-300">
@@ -110,13 +106,9 @@ const Productform = () => {
             >
               Add Product
             </button>
-
           </form>
-
         </div>
-
       </main>
-
     </div>
   );
 };

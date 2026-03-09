@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateProduct = () => {
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [productname, setProductName] = useState("");
@@ -11,17 +11,16 @@ const UpdateProduct = () => {
   const [productquantity, setProductQuantity] = useState("");
 
   const getSingleProduct = async () => {
-    const apiUrl = `${process.env.REACT_APP_API_URL}/get-single-product/${id}`;
+    const apiUrl = `${import.meta.env.VITE_API_URL}/get-single-product/${id}`;
     const response = await axios.get(apiUrl);
-    setProductName(response.data.getSingleProduct.Name)
-    setProductPrice(response.data.getSingleProduct.Price)
-    setProductQuantity(response.data.getSingleProduct.Quantity)
-
-  }
+    setProductName(response.data.getSingleProduct.Name);
+    setProductPrice(response.data.getSingleProduct.Price);
+    setProductQuantity(response.data.getSingleProduct.Quantity);
+  };
 
   useEffect(() => {
-      getSingleProduct();
-    }, []);
+    getSingleProduct();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +31,7 @@ const UpdateProduct = () => {
       Quantity: productquantity,
     };
 
-    const apiUrl = `${process.env.REACT_APP_API_URL}/update-product/${id}`;
+    const apiUrl = `${import.meta.env.VITE_API_URL}/update-product/${id}`;
 
     try {
       await axios.put(apiUrl, productData);
@@ -51,7 +50,6 @@ const UpdateProduct = () => {
 
   return (
     <div className="min-h-screen bg-zinc-900 text-zinc-100">
-
       {/* Header */}
       <header className="bg-zinc-800 border-b border-zinc-700">
         <div className="max-w-6xl mx-auto px-6 py-4">
@@ -61,7 +59,6 @@ const UpdateProduct = () => {
 
       {/* Page Content */}
       <main className="max-w-6xl mx-auto px-6 py-10">
-
         {/* Page Title */}
         <div className="mb-8">
           <h2 className="text-3xl font-semibold">Update Product</h2>
@@ -72,9 +69,7 @@ const UpdateProduct = () => {
 
         {/* Form Card */}
         <div className="bg-zinc-800 p-8 rounded-lg shadow-md max-w-xl">
-
           <form className="space-y-6" onSubmit={handleSubmit}>
-
             {/* Product Name */}
             <div>
               <label className="block mb-2 text-sm text-zinc-300">
@@ -124,13 +119,9 @@ const UpdateProduct = () => {
             >
               Update Product
             </button>
-
           </form>
-
         </div>
-
       </main>
-
     </div>
   );
 };
