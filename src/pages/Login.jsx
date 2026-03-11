@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,16 +11,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/login`,
+        {
+          email,
+          password,
+        },
+      );
 
       // Save token in localStorage
       localStorage.setItem("token", response.data.token);
 
       alert("Login successful!");
-      navigate("/"); 
+      navigate("/");
     } catch (error) {
       alert(error.response?.data?.message || "Login failed");
     }
@@ -82,6 +85,10 @@ const Login = () => {
             >
               Login
             </button>
+            <p className="text-sm text-zinc-400 mt-2">
+              Demo account: <span className="font-medium">test@gmail.com</span>{" "}
+              / <span className="font-medium">test123</span>
+            </p>
           </form>
 
           {/* Register link */}
