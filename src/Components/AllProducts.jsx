@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const showProducts = async () => {
     const token = localStorage.getItem("token");
@@ -43,26 +43,31 @@ const AllProducts = () => {
       console.log(error);
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <div className="min-h-screen bg-zinc-900 text-zinc-100 px-6 py-10">
       {/* Header */}
-        {/* <Navbar /> */}
+      {/* <Navbar /> */}
       <div className="max-w-6xl mx-auto flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">All Products</h1>
         <div className="flex gap-4">
-          
-        <Link
-          to="/add-products"
-          className="bg-blue-500 hover:bg-blue-600 px-5 py-2 rounded-lg transition cursor-pointer"
-        >
-          + Add Product
-        </Link>
-        <button
-          
-          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition cursor-pointer"
-        >
-          Logout
-        </button>
+          <Link
+            to="/add-products"
+            className="bg-blue-500 hover:bg-blue-600 px-5 py-2 rounded-lg transition cursor-pointer"
+          >
+            + Add Product
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition cursor-pointer"
+          >
+            Logout
+          </button>
         </div>
       </div>
 
