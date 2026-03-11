@@ -34,7 +34,7 @@ const Register = () => {
       setEmail("");
       setPassword("");
 
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
