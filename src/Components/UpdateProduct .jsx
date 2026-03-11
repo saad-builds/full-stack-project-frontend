@@ -10,16 +10,31 @@ const UpdateProduct = () => {
   const [productprice, setProductPrice] = useState("");
   const [productquantity, setProductQuantity] = useState("");
 
-  const getSingleProduct = async () => {
+  const getSingleProduct = async (token) => {
     const apiUrl = `${import.meta.env.VITE_API_URL}/get-single-product/${id}`;
-    const response = await axios.get(apiUrl);
-    setProductName(response.data.getSingleProduct.Name);
-    setProductPrice(response.data.getSingleProduct.Price);
-    setProductQuantity(response.data.getSingleProduct.Quantity);
+    try {
+      const response = await axios.get(apiUrl, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProductName(response.data.getSingleProduct.Name);
+      setProductPrice(response.data.getSingleProduct.Price);
+      setProductQuantity(response.data.getSingleProduct.Quantity);
+    } catch (error) {
+      console.log(error);
+      if (error.response?.status === 401) {
+        alert("Unauthorized. Please login again.");
+        navigate("/login");
+      }
+    }
   };
 
   useEffect(() => {
-    getSingleProduct();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    } else {
+      getSingleProduct(token);
+    }
   }, []);
 
   const handleSubmit = async (e) => {
@@ -32,9 +47,12 @@ const UpdateProduct = () => {
     };
 
     const apiUrl = `${import.meta.env.VITE_API_URL}/update-product/${id}`;
+    const token = localStorage.getItem("token");
 
     try {
-      await axios.put(apiUrl, productData);
+      await axios.put(apiUrl, productData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       alert("Product updated successfully!");
 
@@ -42,9 +60,13 @@ const UpdateProduct = () => {
       setProductPrice("");
       setProductQuantity("");
 
-      navigate("/");
+      navigate("/"); 
     } catch (error) {
       console.log(error);
+      if (error.response?.status === 401) {
+        alert("Unauthorized. Please login again.");
+        navigate("/login");
+      }
     }
   };
 
@@ -115,7 +137,7 @@ const UpdateProduct = () => {
             {/* Button */}
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-md font-medium"
+              className="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-md font-medium cursor-pointer"
             >
               Update Product
             </button>

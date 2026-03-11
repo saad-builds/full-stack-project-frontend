@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Productform = () => {
@@ -8,6 +8,13 @@ const Productform = () => {
   const [productname, setProductName] = useState("");
   const [productprice, setProductPrice] = useState("");
   const [productquantity, setProductQuantity] = useState("");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,9 +26,15 @@ const Productform = () => {
     };
 
     const apiUrl = `${import.meta.env.VITE_API_URL}/add`;
+    const token = localStorage.getItem("token");
 
     try {
-      await axios.post(apiUrl, productData);
+      // include JWT in Authorization header
+      await axios.post(apiUrl, productData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       alert("Product added successfully!");
 
@@ -29,9 +42,14 @@ const Productform = () => {
       setProductPrice("");
       setProductQuantity("");
 
-      navigate("/");
+      navigate("/"); 
     } catch (error) {
       console.log(error);
+
+      if (error.response?.status === 401) {
+        alert("Unauthorized. Please login again.");
+        navigate("/login"); 
+      }
     }
   };
 
@@ -102,7 +120,7 @@ const Productform = () => {
             {/* Button */}
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-md font-medium"
+              className="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-md font-medium cursor-pointer"
             >
               Add Product
             </button>
