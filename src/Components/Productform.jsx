@@ -29,7 +29,6 @@ const Productform = () => {
     const token = localStorage.getItem("token");
 
     try {
-      // include JWT in Authorization header
       await axios.post(apiUrl, productData, {
         headers: {
           Authorization: `Bearer ${token}`,
